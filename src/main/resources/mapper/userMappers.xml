@@ -3,8 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flighty.projectDirectory.user.dao.UserDao">
 
+    <!-- 查询用户是否存在（微信） -->
     <select id="selectWx" parameterType="Map" resultType="int">
         select count(*) from user where wxOpenId = #{wxOpenId}
+    </select>
+
+    <!-- 新用户注册（微信） -->
+    <insert id="wxRegister" parameterType="Map">
+        insert into user
+        <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
+            ${key}
+        </foreach>
+        values
+        <foreach collection="params.values"  item="value" open="(" close=")" separator=",">
+            #{value}
+        </foreach>
+    </insert>
+
+    <!-- 查询用户详细信息 -->
+    <select id="selectUser"  parameterType="Map" resultType="int">
+        select * from user where wxOpenId = #{wxOpenId}
     </select>
 
 </mapper>

@@ -22,4 +22,14 @@ public class UserServiceImpl implements UserService {
     public int selectWx(Map<String, Object> paramt) {
         return userDao.selectWx(paramt);
     }
+
+    @Override
+    public int wxRegister(Map params) {
+        return userDao.wxRegister(params);
+    }
+
+    @Override
+    public Map selectUser(Map<String, Object> paramt) {
+        return userDao.selectUser(paramt);
+    }
 }

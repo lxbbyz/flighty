@@ -15,4 +15,18 @@ public interface UserService {
      * @return
      */
     public int selectWx(Map<String,Object> paramt);
+
+    /**
+     * 新用户注册
+     * @param params
+     * @return
+     */
+    public int wxRegister(Map params);
+
+    /**
+     * 查询用户信息
+     * @param paramt
+     * @return
+     */
+    public Map selectUser(Map<String,Object> paramt);
 }
