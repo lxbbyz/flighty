@@ -1,8 +1,15 @@
 server:
+  tomcat:
+    uri-encoding: utf-8
   port: 9080
   servlet:
     context-path: /flighty
 spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
   datasource:
     name: flighty
     url: jdbc:mysql://127.0.0.1:3306/flighty?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC

@@ -52,6 +52,10 @@ public class UserController {
             System.out.println("新用户注册");
             paramt.remove("wxCode");
             paramt.put("id", UuidUtil.get32UUID());
+            paramt.put("grade", 1);
+            paramt.put("experience", 0);
+            paramt.put("star_class", 1);
+            paramt.put("diamond", 0);
             Map businessDataMap = new HashMap<>();
             businessDataMap.put("params", paramt);
             int registerUser = userService.wxRegister(businessDataMap);
