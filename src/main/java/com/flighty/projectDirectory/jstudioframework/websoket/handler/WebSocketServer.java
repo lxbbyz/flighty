@@ -1,5 +1,6 @@
 package com.flighty.projectDirectory.jstudioframework.websoket.handler;
 
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -37,10 +38,11 @@ public class WebSocketServer {
         this.session = session;
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
-        System.out.println("有新窗口开始监听:"+sid+",当前在线人数为" + getOnlineCount());
+        log.info("有新窗口开始监听:"+sid+",当前在线人数为" + getOnlineCount());
         this.sid=sid;
         try {
-            sendMessage("连接成功");
+            String message = "{\"formUserSid\":0,\"toUserSid\":"+sid+",\"content\":\"连接成功\"}";
+            sendInfo(message,sid);
         } catch (IOException e) {
             log.error("websocket IO异常");
         }
@@ -61,16 +63,19 @@ public class WebSocketServer {
      *
      * @param message 客户端发送过来的消息*/
     @OnMessage
-    public void onMessage(String message, Session session) {
+    public void onMessage(String message, Session session) throws IOException {
         log.info("收到来自窗口"+sid+"的信息:"+message);
+        JSONObject jsonObject = JSONObject.fromObject(message);
+        String toUserId = jsonObject.getString("toUserSid");
+        sendInfo(message,toUserId);
         //群发消息
-        for (WebSocketServer item : webSocketSet) {
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        for (WebSocketServer item : webSocketSet) {
+//            try {
+//                item.sendMessage(message);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     /**
