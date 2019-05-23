@@ -28,7 +28,7 @@ public class Reptile {
 //            }
 //        }
 
-        Document documentDemo = (Document) getMain("https://91lz.com/xiangqing?lzarticleId=c945feefd2cc424ba5a5d05573935aba");
+        Document documentDemo = (Document) postMain("https://91lz.com/restful/pcArticle/articleDetail");
         System.out.println("爬到的数据-->"+documentDemo.toString());
 //        Elements scriptDemo = documentDemo.getElementsByTag("script");
 
